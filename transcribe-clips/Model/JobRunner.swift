@@ -25,6 +25,22 @@ final class JobRunner {
     /// Command-line driving for automated checks: `-openFolder <path> -autoStart YES -quitWhenDone YES`.
     func applyLaunchArguments() {
         let defaults = UserDefaults.standard
+        if defaults.bool(forKey: "keychainSelfTest") {
+            let store = KeychainStore()
+            var report: [String] = []
+            do {
+                try store.write("secret-\(Int.random(in: 1000...9999))", account: "selftest")
+                report.append("write ok")
+                report.append("read: \(try store.read(account: "selftest") ?? "nil")")
+                try store.delete(account: "selftest")
+                report.append("after delete: \(try store.read(account: "selftest") ?? "nil")")
+            } catch {
+                report.append("error: \(error)")
+            }
+            try? report.joined(separator: "\n").write(to: TempFiles.directory.appending(path: "keychain-selftest.txt"), atomically: true, encoding: .utf8)
+            NSApp.terminate(nil)
+            return
+        }
         guard let path = defaults.string(forKey: "openFolder") else { return }
         openFolder(URL(fileURLWithPath: path, isDirectory: true))
         guard defaults.bool(forKey: "autoStart") else { return }
@@ -242,6 +258,7 @@ nonisolated enum TempFiles {
 
     static func sweep() {
         try? FileManager.default.removeItem(at: directory)
+        try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
     }
 }
 
