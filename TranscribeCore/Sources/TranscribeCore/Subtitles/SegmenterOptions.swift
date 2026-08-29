@@ -11,7 +11,6 @@ public struct SegmenterOptions: Sendable, Equatable {
     public var sentenceEnders: Set<Character>
     public var clauseBreaks: Set<Character>
     public var splitOnSpeakerChange: Bool
-    public var labelSpeakers: Bool
     public var includeAudioEvents: Bool
 
     public init(
@@ -24,7 +23,6 @@ public struct SegmenterOptions: Sendable, Equatable {
         sentenceEnders: Set<Character> = [".", "!", "?", "؟", "…", "؛"],
         clauseBreaks: Set<Character> = [",", "،", ";", ":", "–", "—"],
         splitOnSpeakerChange: Bool = true,
-        labelSpeakers: Bool = false,
         includeAudioEvents: Bool = false
     ) {
         self.maxCharsPerLine = max(10, maxCharsPerLine)
@@ -36,7 +34,6 @@ public struct SegmenterOptions: Sendable, Equatable {
         self.sentenceEnders = sentenceEnders
         self.clauseBreaks = clauseBreaks
         self.splitOnSpeakerChange = splitOnSpeakerChange
-        self.labelSpeakers = labelSpeakers
         self.includeAudioEvents = includeAudioEvents
     }
 }

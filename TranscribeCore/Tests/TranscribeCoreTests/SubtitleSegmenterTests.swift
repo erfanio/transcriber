@@ -111,11 +111,12 @@ private func speech(_ texts: [String], from startAt: Double = 0, wordDuration: D
         #expect(joined.count == 1)
     }
 
-    @Test func speakerLabelsPrefixOnChange() {
+    @Test func cuesCarryTheirSpeaker() {
         var words = speech(["hello", "there", "my", "friend"])
         words[0].speaker = "A"; words[1].speaker = "A"; words[2].speaker = "B"; words[3].speaker = "B"
-        let cues = SubtitleSegmenter.segment(words, options: SegmenterOptions(labelSpeakers: true))
-        #expect(cues.map(\.text) == ["- hello there", "- my friend"])
+        let cues = SubtitleSegmenter.segment(words)
+        #expect(cues.map(\.text) == ["hello there", "my friend"])
+        #expect(cues.map(\.speaker) == ["A", "B"])
     }
 
     @Test func cuesNeverOverlapAfterExtension() {

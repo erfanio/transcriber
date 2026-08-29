@@ -19,7 +19,6 @@ public enum SubtitleSegmenter {
         let groups = mergeFragments(group(tokens, options: options), options: options)
         var cues = groups.map { makeCue($0, options: options) }
         fixTiming(&cues, options: options)
-        if options.labelSpeakers { applySpeakerLabels(&cues) }
         return cues
     }
 
@@ -202,17 +201,6 @@ public enum SubtitleSegmenter {
                 let fallback = cues[index].start + 0.5
                 cues[index].end = nextStart.map { $0 > cues[index].start ? min(fallback, $0) : fallback } ?? fallback
             }
-        }
-    }
-
-    static func applySpeakerLabels(_ cues: inout [SubtitleCue]) {
-        var previousSpeaker: String??
-        for index in cues.indices {
-            let speaker = cues[index].speaker
-            if speaker != nil, previousSpeaker != .some(speaker), !cues[index].lines.isEmpty {
-                cues[index].lines[0] = "- " + cues[index].lines[0]
-            }
-            previousSpeaker = .some(speaker)
         }
     }
 }

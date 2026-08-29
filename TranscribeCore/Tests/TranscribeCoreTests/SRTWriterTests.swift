@@ -34,6 +34,21 @@ import Testing
         #expect(SRTWriter.render([]) == "")
     }
 
+    @Test func coloursSpeakersInOrderOfAppearance() {
+        let cues = [
+            SubtitleCue(start: 0, end: 1, lines: ["سلام", "خوبی؟"], speaker: "speaker_1"),
+            SubtitleCue(start: 1, end: 2, lines: ["بله"], speaker: "speaker_0"),
+            SubtitleCue(start: 2, end: 3, lines: ["خوبم"], speaker: "speaker_1"),
+            SubtitleCue(start: 3, end: 4, lines: ["(music)"]),
+        ]
+        let srt = SRTWriter.render(cues, options: .init(colorSpeakers: true, speakerPalette: ["#FFFFFF", "#FFD400"]))
+        #expect(srt.contains("<font color=\"#FFFFFF\">سلام</font>\n<font color=\"#FFFFFF\">خوبی؟</font>"))
+        #expect(srt.contains("<font color=\"#FFD400\">بله</font>"))
+        #expect(srt.contains("<font color=\"#FFFFFF\">خوبم</font>"))
+        #expect(srt.contains("\n(music)\n"))
+        #expect(!SRTWriter.render(cues).contains("<font"))
+    }
+
     @Test func mockProviderProducesUsableSubtitles() async throws {
         let provider = MockTranscriptionProvider(simulatedDelay: 0.01)
         let transcript = try await provider.transcribe(audioFileURL: URL(fileURLWithPath: "/tmp/x.m4a"), options: .init()) { _ in }
