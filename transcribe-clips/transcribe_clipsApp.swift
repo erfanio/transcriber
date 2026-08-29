@@ -4,6 +4,7 @@ import SwiftUI
 struct ClipTranscriberApp: App {
     @State private var settings: AppSettings
     @State private var runner: JobRunner
+    @Environment(\.openWindow) private var openWindow
 
     init() {
         let settings = AppSettings()
@@ -25,7 +26,16 @@ struct ClipTranscriberApp: App {
                 Button("Open Folder…") { runner.chooseFolder() }
                     .keyboardShortcut("o")
             }
+            CommandGroup(replacing: .help) {
+                Button("Clip Transcriber User Guide") { openWindow(id: "guide") }
+                    .keyboardShortcut("?", modifiers: .command)
+            }
         }
+
+        Window("User Guide", id: "guide") {
+            UserGuideView()
+        }
+        .defaultSize(width: 680, height: 720)
 
         Settings {
             SettingsView()

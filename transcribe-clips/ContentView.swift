@@ -3,6 +3,7 @@ import SwiftUI
 struct ContentView: View {
     @Environment(JobRunner.self) private var runner
     @Environment(\.openSettings) private var openSettings
+    @Environment(\.openWindow) private var openWindow
     @State private var isDropTargeted = false
 
     var body: some View {
@@ -74,6 +75,13 @@ struct ContentView: View {
 
                 LanguageMenu()
                     .disabled(runner.isRunning)
+
+                Button {
+                    openWindow(id: "guide")
+                } label: {
+                    Label("User Guide", systemImage: "book")
+                }
+                .help("How to use the app, step by step")
 
                 Button {
                     openSettings()
