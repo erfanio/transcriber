@@ -1,0 +1,836 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "%lld clips done, %lld failed.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld کلیپ انجام شد، %lld ناموفق."
+          }
+        }
+      }
+    },
+    "%lld clips now have subtitles.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld کلیپ اکنون زیرنویس دارند."
+          }
+        }
+      }
+    },
+    "%lld done": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld انجام شده"
+          }
+        }
+      }
+    },
+    "%lld failed": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ناموفق"
+          }
+        }
+      }
+    },
+    "%lld selected": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld انتخاب شده"
+          }
+        }
+      }
+    },
+    "API key": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کلید API"
+          }
+        }
+      }
+    },
+    "API key, language and subtitle options": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کلید API، زبان و تنظیمات زیرنویس"
+          }
+        }
+      }
+    },
+    "Add your API key in Settings first.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ابتدا کلید API را در تنظیمات وارد کنید."
+          }
+        }
+      }
+    },
+    "Advanced": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پیشرفته"
+          }
+        }
+      }
+    },
+    "Arabic": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عربی"
+          }
+        }
+      }
+    },
+    "Busy — retrying in %lld s": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سرویس شلوغ است — تلاش دوباره تا %lld ثانیه"
+          }
+        }
+      }
+    },
+    "Can't read this file. Export it from DaVinci Resolve as a MOV or MP4 first.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "این فایل خوانده نمی‌شود. ابتدا آن را از DaVinci Resolve به‌صورت MOV یا MP4 خروجی بگیرید."
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لغو"
+          }
+        }
+      }
+    },
+    "Cancelled": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لغو شد"
+          }
+        }
+      }
+    },
+    "Characters per line": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعداد نویسه در هر خط"
+          }
+        }
+      }
+    },
+    "Choose": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انتخاب"
+          }
+        }
+      }
+    },
+    "Choose a folder of video clips": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انتخاب پوشهٔ کلیپ‌های ویدیویی"
+          }
+        }
+      }
+    },
+    "Choose the folder that contains your video clips": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پوشه‌ای را که کلیپ‌های ویدیویی در آن است انتخاب کنید"
+          }
+        }
+      }
+    },
+    "Clip": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کلیپ"
+          }
+        }
+      }
+    },
+    "Clip Transcriber": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "زیرنویس‌ساز کلیپ"
+          }
+        }
+      }
+    },
+    "Clips transcribed at once": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعداد کلیپ‌های هم‌زمان"
+          }
+        }
+      }
+    },
+    "Could not extract the audio: %@": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استخراج صدا ممکن نشد: %@"
+          }
+        }
+      }
+    },
+    "Could not save the key: %@": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کلید ذخیره نشد: %@"
+          }
+        }
+      }
+    },
+    "Detect automatically": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تشخیص خودکار"
+          }
+        }
+      }
+    },
+    "Detect different speakers": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تشخیص گویندگان مختلف"
+          }
+        }
+      }
+    },
+    "Done · %lld subtitles": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انجام شد · %lld زیرنویس"
+          }
+        }
+      }
+    },
+    "Drop a folder of video clips here": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پوشهٔ کلیپ‌های ویدیویی را اینجا رها کنید"
+          }
+        }
+      }
+    },
+    "Duration": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مدت"
+          }
+        }
+      }
+    },
+    "English": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انگلیسی"
+          }
+        }
+      }
+    },
+    "Extracting audio": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استخراج صدا"
+          }
+        }
+      }
+    },
+    "French": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فرانسوی"
+          }
+        }
+      }
+    },
+    "German": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آلمانی"
+          }
+        }
+      }
+    },
+    "Get an ElevenLabs API key…": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دریافت کلید API از ElevenLabs…"
+          }
+        }
+      }
+    },
+    "Keep a copy of the full transcript (.transcript.json)": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نگه‌داشتن نسخهٔ کامل متن (.transcript.json)"
+          }
+        }
+      }
+    },
+    "Language": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "زبان"
+          }
+        }
+      }
+    },
+    "Longest subtitle": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بیشترین مدت هر زیرنویس"
+          }
+        }
+      }
+    },
+    "Names and special words": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نام‌ها و واژه‌های خاص"
+          }
+        }
+      }
+    },
+    "Network problem: %@": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مشکل شبکه: %@"
+          }
+        }
+      }
+    },
+    "No video or audio clips found": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هیچ کلیپ ویدیویی یا صوتی پیدا نشد"
+          }
+        }
+      }
+    },
+    "OK": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "باشه"
+          }
+        }
+      }
+    },
+    "One per line. Character names, places and unusual words help the transcription get spelling right.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هر کدام در یک خط. نام شخصیت‌ها، مکان‌ها و واژه‌های نامعمول به درست‌نویسی متن کمک می‌کنند."
+          }
+        }
+      }
+    },
+    "Open Folder…": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "باز کردن پوشه…"
+          }
+        }
+      }
+    },
+    "Persian": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فارسی"
+          }
+        }
+      }
+    },
+    "Please drop a folder, not individual files. Subtitles are saved next to the clips inside the folder.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لطفاً یک پوشه رها کنید، نه فایل‌های جداگانه. زیرنویس‌ها کنار کلیپ‌ها داخل همان پوشه ذخیره می‌شوند."
+          }
+        }
+      }
+    },
+    "Ready": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آماده"
+          }
+        }
+      }
+    },
+    "Retry Failed": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تلاش دوباره برای ناموفق‌ها"
+          }
+        }
+      }
+    },
+    "Same name as another clip": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هم‌نام با کلیپ دیگری"
+          }
+        }
+      }
+    },
+    "Saving subtitles": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ذخیرهٔ زیرنویس"
+          }
+        }
+      }
+    },
+    "Scanning…": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "در حال جست‌وجو…"
+          }
+        }
+      }
+    },
+    "Select All": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انتخاب همه"
+          }
+        }
+      }
+    },
+    "Select None": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لغو انتخاب همه"
+          }
+        }
+      }
+    },
+    "Service": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سرویس"
+          }
+        }
+      }
+    },
+    "Settings": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تنظیمات"
+          }
+        }
+      }
+    },
+    "Show in Finder": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نمایش در Finder"
+          }
+        }
+      }
+    },
+    "Something went wrong": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مشکلی پیش آمد"
+          }
+        }
+      }
+    },
+    "Spanish": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسپانیایی"
+          }
+        }
+      }
+    },
+    "Spoken language": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "زبان گفتار"
+          }
+        }
+      }
+    },
+    "Start": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "شروع"
+          }
+        }
+      }
+    },
+    "Status": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "وضعیت"
+          }
+        }
+      }
+    },
+    "Stop transcribing": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "توقف"
+          }
+        }
+      }
+    },
+    "Subtitles": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "زیرنویس"
+          }
+        }
+      }
+    },
+    "Subtitles (.srt) are saved next to each clip.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "زیرنویس‌ها (.srt) کنار هر کلیپ ذخیره می‌شوند."
+          }
+        }
+      }
+    },
+    "Subtitles exist": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "زیرنویس موجود است"
+          }
+        }
+      }
+    },
+    "Test Key": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آزمایش کلید"
+          }
+        }
+      }
+    },
+    "The API key was rejected. Check it in Settings.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کلید API پذیرفته نشد. آن را در تنظیمات بررسی کنید."
+          }
+        }
+      }
+    },
+    "The service could not process this clip: %@": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سرویس نتوانست این کلیپ را پردازش کند: %@"
+          }
+        }
+      }
+    },
+    "The service had a problem (error %lld). Try again later.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سرویس با مشکل مواجه شد (خطای %lld). بعداً دوباره تلاش کنید."
+          }
+        }
+      }
+    },
+    "The service is busy. Try again in a few minutes.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سرویس شلوغ است. چند دقیقهٔ دیگر دوباره تلاش کنید."
+          }
+        }
+      }
+    },
+    "The service refused this request: %@": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سرویس این درخواست را رد کرد: %@"
+          }
+        }
+      }
+    },
+    "The service sent an unexpected reply.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سرویس پاسخ غیرمنتظره‌ای فرستاد."
+          }
+        }
+      }
+    },
+    "The stored key could not be read.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کلید ذخیره‌شده خوانده نشد."
+          }
+        }
+      }
+    },
+    "This clip has no audio track.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "این کلیپ صدا ندارد."
+          }
+        }
+      }
+    },
+    "This clip is too large for the service.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "این کلیپ برای سرویس بیش از حد بزرگ است."
+          }
+        }
+      }
+    },
+    "This folder (including subfolders) has no clips the app can read.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "در این پوشه (و زیرپوشه‌هایش) کلیپی نیست که برنامه بتواند بخواند."
+          }
+        }
+      }
+    },
+    "Transcribe the ticked clips": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ساخت زیرنویس برای کلیپ‌های تیک‌خورده"
+          }
+        }
+      }
+    },
+    "Transcribing…": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "در حال تبدیل گفتار به متن…"
+          }
+        }
+      }
+    },
+    "Transcription finished": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ساخت زیرنویس تمام شد"
+          }
+        }
+      }
+    },
+    "Transcription service": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سرویس تبدیل گفتار به متن"
+          }
+        }
+      }
+    },
+    "Turkish": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ترکی"
+          }
+        }
+      }
+    },
+    "Unexpected reply from the service (%lld).": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پاسخ غیرمنتظره از سرویس (%lld)."
+          }
+        }
+      }
+    },
+    "Uploading": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "در حال بارگذاری"
+          }
+        }
+      }
+    },
+    "Waiting…": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "در انتظار…"
+          }
+        }
+      }
+    },
+    "Your account has run out of credits.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اعتبار حساب شما تمام شده است."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}
