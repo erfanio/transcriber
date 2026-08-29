@@ -1,38 +1,52 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "CFBundleDisplayName": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Clip Transcriber"
+  "sourceLanguage" : "en",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clip Transcriber"
           }
         },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "زیرنویس‌ساز کلیپ"
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "زیرنویس‌ساز کلیپ"
           }
         }
       }
     },
-    "CFBundleName": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Clip Transcriber"
+    "CFBundleName" : {
+      "comment" : "Bundle name",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clip Transcriber"
           }
         },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "زیرنویس‌ساز کلیپ"
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "زیرنویس‌ساز کلیپ"
+          }
+        }
+      }
+    },
+    "NSHumanReadableCopyright" : {
+      "comment" : "Copyright (human-readable)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : ""
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }
