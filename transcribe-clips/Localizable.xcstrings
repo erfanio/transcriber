@@ -1,6 +1,7 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "": {},
     "%lld clips done, %lld failed.": {
       "localizations": {
         "fa": {
@@ -707,6 +708,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "کلید ذخیره‌شده خوانده نشد."
+          }
+        }
+      }
+    },
+    "This API key isn't allowed to do that. In ElevenLabs, edit the key's permissions and enable “Speech to Text”.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "این کلید API اجازهٔ این کار را ندارد. در ElevenLabs دسترسی‌های کلید را ویرایش کنید و «Speech to Text» را فعال کنید."
           }
         }
       }
