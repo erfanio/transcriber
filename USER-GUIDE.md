@@ -13,6 +13,7 @@
    (این کار فقط بار اول لازم است. macOS برنامه‌هایی را که از App Store نیامده‌اند این‌طور تأیید می‌کند.)
 3. برنامه را باز کنید و از منوی **Clip Transcriber ▸ Settings…** (یا کلید ⌘,) تنظیمات را باز کنید.
 4. در قسمت **کلید API**، کلیدی را که برایتان فرستاده شده بچسبانید و **آزمایش کلید** را بزنید. باید تیک سبز ببینید.
+   (برای کسی که کلید را در elevenlabs.io می‌سازد: کلید باید دسترسی **Speech to Text** داشته باشد. دسترسی **User** اختیاری است و فقط برای نمایش اعتبار باقی‌مانده به کار می‌رود.)
 5. **زبان گفتار** روی **فارسی** باشد.
 
 ### ساخت زیرنویس
@@ -46,6 +47,7 @@
 2. The first time, **right-click** the app and choose **Open**, then click **Open** again in the dialog. (Needed only once; this is how macOS approves apps that don't come from the App Store.)
 3. Launch the app and open **Clip Transcriber ▸ Settings…** (⌘,).
 4. Paste the API key you were given into **API key** and press **Test Key** — you should see a green check.
+   (For whoever creates the key at elevenlabs.io: it needs the **Speech to Text** permission. The **User** permission is optional — it only lets the app show remaining credits.)
 5. Set **Spoken language** to **Persian**.
 
 ### Make subtitles
