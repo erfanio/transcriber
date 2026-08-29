@@ -14,6 +14,7 @@ xcodebuild \
   -configuration Release \
   -destination 'platform=macOS' \
   -derivedDataPath "$DERIVED" \
+  ARCHS="arm64 x86_64" ONLY_ACTIVE_ARCH=NO \
   build | grep -E "error:|warning:|BUILD" || true
 
 APP="$DERIVED/Build/Products/Release/Clip Transcriber.app"
