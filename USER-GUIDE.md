@@ -19,14 +19,14 @@
 ### ساخت زیرنویس
 
 1. پوشه‌ای را که کلیپ‌ها در آن هستند روی پنجرهٔ برنامه **رها کنید** (یا ⌘O را بزنید و پوشه را انتخاب کنید). زیرپوشه‌ها هم جست‌وجو می‌شوند.
-2. کلیپ‌ها با یک تیک فهرست می‌شوند. کلیپ‌هایی که از قبل زیرنویس دارند خاکستری‌اند و نمی‌شود انتخابشان کرد.
+2. کلیپ‌ها با یک تیک فهرست می‌شوند. آن‌هایی را که می‌خواهید تیک بزنید (یا **انتخاب همه**). کلیپ‌هایی که از قبل زیرنویس دارند خاکستری‌اند و نمی‌شود انتخابشان کرد.
 3. **شروع** را بزنید. وضعیت هر کلیپ نشان داده می‌شود: استخراج صدا ← بارگذاری ← تبدیل گفتار به متن ← انجام شد.
 4. وقتی تمام شد، کنار هر کلیپ یک فایل `.srt` (و یک `.transcript.json`) هست.
 
 نکته‌ها:
 - در طول کار، درِ لپ‌تاپ را نبندید. می‌توانید برنامه را در پس‌زمینه بگذارید و کار دیگری بکنید.
-- اگر برنامه بسته شد، دوباره همان پوشه را باز کنید؛ فقط کلیپ‌های باقی‌مانده انتخاب می‌شوند.
-- برای ساخت دوبارهٔ زیرنویس یک کلیپ، فایل `.srt` آن را در Finder پاک کنید و پوشه را دوباره باز کنید.
+- اگر برنامه بسته شد، دوباره همان پوشه را باز کنید و کلیپ‌های باقی‌مانده را تیک بزنید.
+- برای ساخت دوبارهٔ زیرنویس یک کلیپ، فایل `.srt` آن را در Finder پاک کنید؛ فهرست خودبه‌خود به‌روز می‌شود (یا ⌘R را بزنید). اگر فایل `.transcript.json` کلیپ هنوز هست، زیرنویس فوراً و بدون بارگذاری دوباره از روی آن ساخته می‌شود؛ برای اعمال تنظیمات جدید زیرنویس (طول خط، رنگ‌ها) روی کلیپ‌های قبلی هم همین راه را بروید.
 - در تنظیمات، بخش **نام‌ها و واژه‌های خاص** را با نام شخصیت‌ها و مکان‌های فیلم پر کنید تا املای آن‌ها درست دربیاید.
 
 ### وارد کردن در DaVinci Resolve
@@ -53,14 +53,14 @@
 ### Make subtitles
 
 1. **Drop the folder** that contains the clips onto the window (or press ⌘O and pick it). Subfolders are included.
-2. Every clip is listed with a checkbox. Clips that already have subtitles are greyed out.
+2. Every clip is listed with a checkbox. Tick the ones you want (or **Select All**). Clips that already have subtitles are greyed out.
 3. Press **Start**. Each clip goes Extracting audio → Uploading → Transcribing → Done.
 4. When it finishes, every clip has an `.srt` (and a `.transcript.json`) beside it.
 
 Tips:
 - Keep the laptop lid open while it works; the app can run in the background.
-- If the app is closed mid-way, open the same folder again — only the remaining clips will be selected.
-- To redo a clip, delete its `.srt` in Finder and open the folder again.
+- If the app is closed mid-way, open the same folder again and tick the remaining clips.
+- To redo a clip's subtitles, delete its `.srt` in Finder — the list updates by itself (or press ⌘R). If the clip still has its `.transcript.json`, the subtitles are rebuilt from it instantly, without uploading again; that's also how to apply new subtitle settings (line length, colours) to clips you've already done.
 - Fill **Names and special words** in Settings with character and place names from the film to get their spelling right.
 
 ### Import into DaVinci Resolve
