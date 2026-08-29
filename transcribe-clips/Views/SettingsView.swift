@@ -30,7 +30,7 @@ struct SettingsView: View {
                             .disabled(apiKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || keyCheck == .testing)
                         keyCheckLabel
                     }
-                    Text("The key is stored in your keychain when you press Test Key or close this window.")
+                    Text("The key is saved when you press Test Key or close this window.")
                         .font(.callout)
                         .foregroundStyle(.secondary)
                     if settings.providerID == ProviderFactory.elevenLabsID {
@@ -108,7 +108,7 @@ struct SettingsView: View {
             return
         }
         do {
-            storedKey = try KeychainStore().read(account: settings.providerID) ?? ""
+            storedKey = try APIKeyStore().read(account: settings.providerID) ?? ""
             apiKey = storedKey
             keyCheck = .idle
         } catch {
@@ -116,15 +116,14 @@ struct SettingsView: View {
         }
     }
 
-    // Keychain access can prompt on ad-hoc builds, so only touch it when the key actually changed.
     private func saveKey() {
         let trimmed = apiKey.trimmingCharacters(in: .whitespacesAndNewlines)
         guard trimmed != storedKey, ProviderFactory.info(for: settings.providerID)?.needsAPIKey == true else { return }
         do {
             if trimmed.isEmpty {
-                try KeychainStore().delete(account: settings.providerID)
+                try APIKeyStore().delete(account: settings.providerID)
             } else {
-                try KeychainStore().write(trimmed, account: settings.providerID)
+                try APIKeyStore().write(trimmed, account: settings.providerID)
             }
             storedKey = trimmed
         } catch {

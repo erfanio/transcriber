@@ -222,22 +222,22 @@
         }
       }
     },
-    "Could not read the API key from the keychain: %@": {
-      "localizations": {
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "کلید API از کی‌چین خوانده نشد: %@"
-          }
-        }
-      }
-    },
     "Could not read the key: %@": {
       "localizations": {
         "fa": {
           "stringUnit": {
             "state": "translated",
             "value": "کلید خوانده نشد: %@"
+          }
+        }
+      }
+    },
+    "Could not read the saved API key: %@": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کلید API ذخیره‌شده خوانده نشد: %@"
           }
         }
       }
@@ -672,12 +672,12 @@
         }
       }
     },
-    "The key is stored in your keychain when you press Test Key or close this window.": {
+    "The key is saved when you press Test Key or close this window.": {
       "localizations": {
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "کلید هنگام زدن «آزمایش کلید» یا بستن این پنجره در کی‌چین ذخیره می‌شود."
+            "value": "کلید هنگام زدن «آزمایش کلید» یا بستن این پنجره ذخیره می‌شود."
           }
         }
       }
@@ -738,16 +738,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "سرویس پاسخ غیرمنتظره‌ای فرستاد."
-          }
-        }
-      }
-    },
-    "The stored key could not be read.": {
-      "localizations": {
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "کلید ذخیره‌شده خوانده نشد."
           }
         }
       }

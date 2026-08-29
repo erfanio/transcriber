@@ -25,8 +25,8 @@ final class JobRunner {
     /// Command-line driving for automated checks: `-openFolder <path> -autoStart YES -quitWhenDone YES`.
     func applyLaunchArguments() {
         let defaults = UserDefaults.standard
-        if defaults.bool(forKey: "keychainSelfTest") {
-            let store = KeychainStore()
+        if defaults.bool(forKey: "apiKeyStoreSelfTest") {
+            let store = APIKeyStore()
             var report: [String] = []
             do {
                 try store.write("secret-\(Int.random(in: 1000...9999))", account: "selftest")
@@ -37,7 +37,7 @@ final class JobRunner {
             } catch {
                 report.append("error: \(error)")
             }
-            try? report.joined(separator: "\n").write(to: TempFiles.directory.appending(path: "keychain-selftest.txt"), atomically: true, encoding: .utf8)
+            try? report.joined(separator: "\n").write(to: TempFiles.directory.appending(path: "apikeystore-selftest.txt"), atomically: true, encoding: .utf8)
             NSApp.terminate(nil)
             return
         }
@@ -129,9 +129,9 @@ final class JobRunner {
 
         let apiKey: String?
         do {
-            apiKey = try KeychainStore().read(account: settings.providerID)
+            apiKey = try APIKeyStore().read(account: settings.providerID)
         } catch {
-            lastError = String(localized: "Could not read the API key from the keychain: \(error.localizedDescription)")
+            lastError = String(localized: "Could not read the saved API key: \(error.localizedDescription)")
             return
         }
         let config = settings.runConfiguration(apiKey: apiKey)
