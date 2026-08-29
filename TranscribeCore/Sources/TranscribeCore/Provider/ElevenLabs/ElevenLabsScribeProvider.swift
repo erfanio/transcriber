@@ -1,4 +1,7 @@
 import Foundation
+import os
+
+private let log = Logger(subsystem: "io.erfan.transcribe-clips", category: "ElevenLabs")
 
 /// ElevenLabs Speech-to-Text (Scribe v2) via `POST /v1/speech-to-text`.
 public struct ElevenLabsScribeProvider: TranscriptionProvider {
@@ -50,7 +53,7 @@ public struct ElevenLabsScribeProvider: TranscriptionProvider {
 
         let (data, response) = try await perform { try await session.data(for: request) }
         guard response.statusCode == 200 else {
-            let error = HTTPErrorMapper.map(status: response.statusCode, data: data, retryAfterHeader: response.value(forHTTPHeaderField: "Retry-After"))
+            let error = mapFailure(response, data)
             if case .missingPermissions = error {
                 return "Key is valid · usage not visible (add the “User” permission to the key to show it)"
             }
@@ -156,9 +159,15 @@ public struct ElevenLabsScribeProvider: TranscriptionProvider {
             try await session.upload(for: request, fromFile: form.url, delegate: delegate)
         }
         guard response.statusCode == 200 else {
-            throw HTTPErrorMapper.map(status: response.statusCode, data: data, retryAfterHeader: response.value(forHTTPHeaderField: "Retry-After"))
+            throw mapFailure(response, data)
         }
         return try ElevenLabsDTO.transcript(from: data, providerID: id)
+    }
+
+    private func mapFailure(_ response: HTTPURLResponse, _ data: Data) -> TranscriptionError {
+        let body = String(decoding: data.prefix(600), as: UTF8.self)
+        log.error("\(response.url?.path ?? "?", privacy: .public) -> HTTP \(response.statusCode) \(body, privacy: .public)")
+        return HTTPErrorMapper.map(status: response.statusCode, data: data, retryAfterHeader: response.value(forHTTPHeaderField: "Retry-After"))
     }
 
     private func apply(headers request: inout URLRequest) {

@@ -17,7 +17,10 @@ public enum HTTPErrorMapper {
         }
         switch status {
         case 401:
-            return .invalidAPIKey
+            if code.isEmpty || code.contains("invalid_api_key") || code.contains("unauthorized") || message.isEmpty {
+                return .invalidAPIKey
+            }
+            return .unauthorized(message)
         case 402:
             return .insufficientCredits
         case 403:

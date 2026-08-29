@@ -75,6 +75,10 @@ import Testing
         let noPermission = Data(#"{"detail":{"status":"missing_permissions","message":"The API key you used is missing the permission user_read"}}"#.utf8)
         #expect(HTTPErrorMapper.map(status: 401, data: noPermission) == .missingPermissions("The API key you used is missing the permission user_read"))
         #expect(HTTPErrorMapper.map(status: 401, data: noPermission).isRetryable == false)
+        let unusual = Data(#"{"detail":{"status":"detected_unusual_activity","message":"Unusual activity detected. Free Tier usage disabled."}}"#.utf8)
+        #expect(HTTPErrorMapper.map(status: 401, data: unusual) == .unauthorized("Unusual activity detected. Free Tier usage disabled."))
+        #expect(HTTPErrorMapper.map(status: 401, data: Data(#"{"detail":{"status":"invalid_api_key","message":"Invalid API key"}}"#.utf8)) == .invalidAPIKey)
+        #expect(HTTPErrorMapper.map(status: 401, data: Data()) == .invalidAPIKey)
     }
 
     @Test func mapsDetailStringAndGarbage() {
