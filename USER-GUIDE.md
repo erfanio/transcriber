@@ -12,7 +12,7 @@
 2. روی برنامه دوبار کلیک کنید. اگر macOS گفت «Apple cannot check it»، **Done** را بزنید، به **System Settings ← Privacy & Security** بروید، پایین صفحه خط «Clip Transcriber was blocked…» را پیدا کنید، **Open Anyway** را بزنید و رمز خود را وارد کنید.
    (این کار فقط بار اول لازم است. macOS برنامه‌هایی را که از App Store نیامده‌اند این‌طور تأیید می‌کند. اگر برنامه از فلش USB کپی شده باشد معمولاً این مرحله اصلاً پیش نمی‌آید.)
 3. برنامه را باز کنید و از منوی **Clip Transcriber ▸ Settings…** (یا کلید ⌘,) تنظیمات را باز کنید.
-4. در قسمت **کلید API**، کلیدی را که برایتان فرستاده شده بچسبانید و **آزمایش کلید** را بزنید. باید تیک سبز ببینید. اگر macOS برای دسترسی برنامه به کی‌چین رمز خواست، رمز را وارد کنید و **Always Allow** را بزنید.
+4. در قسمت **کلید API**، کلیدی را که برایتان فرستاده شده بچسبانید و **آزمایش کلید** را بزنید. باید تیک سبز ببینید.
    (برای کسی که کلید را در elevenlabs.io می‌سازد: کلید باید دسترسی **Speech to Text** داشته باشد. دسترسی **User** اختیاری است و فقط برای نمایش اعتبار باقی‌مانده به کار می‌رود.)
 5. **زبان گفتار** روی **فارسی** باشد.
 
@@ -46,7 +46,7 @@
 1. Drag `Clip Transcriber.app` into **Applications**.
 2. Double-click it. If macOS says it *"can't be opened because Apple cannot check it"*, click **Done**, open **System Settings → Privacy & Security**, scroll down to the line *"Clip Transcriber was blocked…"*, click **Open Anyway** and enter your password. (Needed only once; this is how macOS approves apps that don't come from the App Store. If the app was copied from a USB stick this step usually doesn't appear at all.)
 3. Launch the app and open **Clip Transcriber ▸ Settings…** (⌘,).
-4. Paste the API key you were given into **API key** and press **Test Key** — you should see a green check. If macOS asks for your password to let the app use the keychain, enter it and choose **Always Allow**.
+4. Paste the API key you were given into **API key** and press **Test Key** — you should see a green check.
    (For whoever creates the key at elevenlabs.io: it needs the **Speech to Text** permission. The **User** permission is optional — it only lets the app show remaining credits.)
 5. Set **Spoken language** to **Persian**.
 

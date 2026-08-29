@@ -5,7 +5,9 @@ macOS app that transcribes a folder of video clips (Persian by default) with Ele
 ## Layout
 
 - `TranscribeCore/` — Swift package, pure Foundation, Swift 6 mode. Transcript models, `TranscriptionProvider` protocol, ElevenLabs provider, streamed multipart upload, retry/error mapping, subtitle segmenter and SRT writer. Fully unit-tested.
-- `transcribe-clips/` — the app target (macOS 15+, sandboxed). Folder scanning, AVFoundation audio extraction, Keychain, job runner, SwiftUI views, string catalogs (`en`, `fa`).
+- `transcribe-clips/` — the app target (macOS 15+, sandboxed). Folder scanning, AVFoundation audio extraction, job runner, SwiftUI views, string catalogs (`en`, `fa`).
+
+The API key is kept as an owner-only file in the app's sandbox container (`…/Data/Library/Application Support/api-keys/`) rather than the keychain: ad-hoc-signed builds can only use the legacy keychain, which demands the login password after every rebuild.
 
 ## Develop
 
