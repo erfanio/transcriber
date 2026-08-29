@@ -56,6 +56,11 @@ struct SettingsView: View {
                     LabeledContent("Longest subtitle", value: "\(settings.maxCueDuration.formatted()) s")
                 }
                 Toggle("Detect different speakers", isOn: $settings.diarize)
+                Toggle("Give each speaker a different colour", isOn: $settings.colorSpeakers)
+                    .disabled(!settings.diarize)
+                Text("Colours use SRT font tags. Most players show them; DaVinci Resolve may ignore them, so try one clip first.")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
                 Toggle("Keep a copy of the full transcript (.transcript.json)", isOn: $settings.saveRawTranscript)
             }
 

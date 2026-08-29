@@ -26,6 +26,7 @@ final class AppSettings {
     var languageCode: String { didSet { defaults.set(languageCode, forKey: "languageCode") } }
     var maxConcurrent: Int { didSet { defaults.set(maxConcurrent, forKey: "maxConcurrent") } }
     var diarize: Bool { didSet { defaults.set(diarize, forKey: "diarize") } }
+    var colorSpeakers: Bool { didSet { defaults.set(colorSpeakers, forKey: "colorSpeakers") } }
     var keytermsText: String { didSet { defaults.set(keytermsText, forKey: "keytermsText") } }
     var maxCharsPerLine: Int { didSet { defaults.set(maxCharsPerLine, forKey: "maxCharsPerLine") } }
     var maxCueDuration: Double { didSet { defaults.set(maxCueDuration, forKey: "maxCueDuration") } }
@@ -37,6 +38,7 @@ final class AppSettings {
         languageCode = defaults.string(forKey: "languageCode") ?? "fas"
         maxConcurrent = defaults.object(forKey: "maxConcurrent") as? Int ?? 2
         diarize = defaults.object(forKey: "diarize") as? Bool ?? true
+        colorSpeakers = defaults.bool(forKey: "colorSpeakers")
         keytermsText = defaults.string(forKey: "keytermsText") ?? ""
         maxCharsPerLine = defaults.object(forKey: "maxCharsPerLine") as? Int ?? 42
         maxCueDuration = defaults.object(forKey: "maxCueDuration") as? Double ?? 6.0
@@ -64,9 +66,9 @@ final class AppSettings {
             ),
             segmenterOptions: SegmenterOptions(
                 maxCharsPerLine: maxCharsPerLine,
-                maxCueDuration: maxCueDuration,
-                labelSpeakers: diarize
+                maxCueDuration: maxCueDuration
             ),
+            srtOptions: SRTWriter.Options(colorSpeakers: diarize && colorSpeakers),
             maxConcurrent: max(1, min(4, maxConcurrent)),
             saveRawTranscript: saveRawTranscript
         )
@@ -79,6 +81,7 @@ nonisolated struct RunConfiguration: Sendable {
     var apiKey: String?
     var transcriptionOptions: TranscriptionOptions
     var segmenterOptions: SegmenterOptions
+    var srtOptions: SRTWriter.Options
     var maxConcurrent: Int
     var saveRawTranscript: Bool
 }

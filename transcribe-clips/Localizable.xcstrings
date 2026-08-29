@@ -212,6 +212,16 @@
         }
       }
     },
+    "Colours use SRT font tags. Most players show them; DaVinci Resolve may ignore them, so try one clip first.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رنگ‌ها با تگ‌های font در SRT اعمال می‌شوند. بیشتر پخش‌کننده‌ها آن‌ها را نشان می‌دهند؛ DaVinci Resolve ممکن است نادیده‌شان بگیرد، پس اول با یک کلیپ امتحان کنید."
+          }
+        }
+      }
+    },
     "Could not extract the audio: %@": {
       "localizations": {
         "fa": {
@@ -348,6 +358,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "دریافت کلید API از ElevenLabs…"
+          }
+        }
+      }
+    },
+    "Give each speaker a different colour": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هر گوینده با رنگ متفاوت"
           }
         }
       }

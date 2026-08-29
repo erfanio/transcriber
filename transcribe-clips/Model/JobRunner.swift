@@ -246,7 +246,7 @@ final class JobRunner {
             }
 
             job.status = .writing
-            let (srt, cueCount) = await SubtitleBuilder.build(transcript, options: config.segmenterOptions)
+            let (srt, cueCount) = await SubtitleBuilder.build(transcript, options: config.segmenterOptions, srtOptions: config.srtOptions)
             try Data(srt.utf8).write(to: job.srtURL, options: .atomic)
             if config.saveRawTranscript {
                 try SubtitleBuilder.transcriptData(transcript).write(to: job.jsonURL, options: .atomic)
@@ -268,9 +268,9 @@ final class JobRunner {
 
 nonisolated enum SubtitleBuilder {
     @concurrent
-    static func build(_ transcript: Transcript, options: SegmenterOptions) async -> (srt: String, cueCount: Int) {
+    static func build(_ transcript: Transcript, options: SegmenterOptions, srtOptions: SRTWriter.Options) async -> (srt: String, cueCount: Int) {
         let cues = SubtitleSegmenter.segment(transcript.words, options: options)
-        return (SRTWriter.render(cues), cues.count)
+        return (SRTWriter.render(cues, options: srtOptions), cues.count)
     }
 
     static func transcriptData(_ transcript: Transcript) throws -> Data {
