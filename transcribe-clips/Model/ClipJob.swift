@@ -1,3 +1,4 @@
+import CoreGraphics
 import Foundation
 import Observation
 
@@ -20,6 +21,8 @@ final class ClipJob: Identifiable {
     let url: URL
     let relativeName: String
     var duration: TimeInterval?
+    var thumbnail: CGImage?
+    var mediaInfoLoaded = false
     var isSelected: Bool
     var hasExistingSRT: Bool
     let nameCollision: Bool

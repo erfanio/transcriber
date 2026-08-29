@@ -19,10 +19,17 @@ struct ClipTable: View {
             .width(28)
 
             TableColumn("Clip") { job in
-                Text(job.relativeName)
-                    .foregroundStyle(job.isDimmed ? .secondary : .primary)
-                    .help(job.url.path(percentEncoded: false))
+                HStack(spacing: 10) {
+                    ThumbnailView(job: job)
+                    Text(job.relativeName)
+                        .foregroundStyle(job.isDimmed ? .secondary : .primary)
+                        .lineLimit(2)
+                        .truncationMode(.middle)
+                }
+                .padding(.vertical, 4)
+                .help(job.url.path(percentEncoded: false))
             }
+            .width(min: 260, ideal: 360)
 
             TableColumn("Duration") { job in
                 Text(job.durationText)
@@ -51,6 +58,30 @@ struct ClipTable: View {
                 )
             }
         }
+    }
+}
+
+private struct ThumbnailView: View {
+    let job: ClipJob
+    private let size = CGSize(width: 96, height: 54)
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 5)
+                .fill(.quaternary)
+            if let thumbnail = job.thumbnail {
+                Image(thumbnail, scale: 1, label: Text(job.relativeName))
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } else {
+                Image(systemName: job.mediaInfoLoaded ? "waveform" : "film")
+                    .font(.title2)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .frame(width: size.width, height: size.height)
+        .clipShape(RoundedRectangle(cornerRadius: 5))
+        .opacity(job.isDimmed ? 0.5 : 1)
     }
 }
 

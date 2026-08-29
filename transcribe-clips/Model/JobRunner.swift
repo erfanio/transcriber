@@ -98,9 +98,32 @@ final class JobRunner {
             guard !Task.isCancelled else { return }
             jobs = clips.map { ClipJob(url: $0.url, relativeName: $0.relativeName, hasExistingSRT: $0.hasExistingSRT, nameCollision: $0.nameCollision) }
             isScanning = false
-            for job in jobs {
+            await loadMediaInfo(for: jobs)
+        }
+    }
+
+    /// Durations and thumbnails, a few clips at a time so a big folder fills in progressively.
+    private func loadMediaInfo(for jobs: [ClipJob]) async {
+        var pending = jobs.makeIterator()
+        await withTaskGroup(of: (UUID, TimeInterval?, CGImage?).self) { group in
+            func enqueueNext() {
+                guard let job = pending.next() else { return }
+                let id = job.id, url = job.url
+                group.addTask {
+                    async let duration = MediaInfo.duration(of: url)
+                    async let thumbnail = MediaInfo.thumbnail(of: url)
+                    return await (id, duration, thumbnail)
+                }
+            }
+            for _ in 0..<3 { enqueueNext() }
+            for await (id, duration, thumbnail) in group {
                 guard !Task.isCancelled else { return }
-                job.duration = await MediaInfo.duration(of: job.url)
+                if let job = jobs.first(where: { $0.id == id }) {
+                    job.duration = duration
+                    job.thumbnail = thumbnail
+                    job.mediaInfoLoaded = true
+                }
+                enqueueNext()
             }
         }
     }

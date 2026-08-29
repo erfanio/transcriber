@@ -82,4 +82,21 @@ nonisolated enum MediaInfo {
         let seconds = duration.seconds
         return seconds.isFinite && seconds > 0 ? seconds : nil
     }
+
+    /// A frame from about a second in (or the middle of very short clips); nil for audio-only or unreadable files.
+    @concurrent
+    static func thumbnail(of url: URL, maxPixelSize: CGSize = CGSize(width: 256, height: 256)) async -> CGImage? {
+        let asset = AVURLAsset(url: url)
+        guard let tracks = try? await asset.loadTracks(withMediaType: .video), !tracks.isEmpty,
+              let duration = try? await asset.load(.duration)
+        else { return nil }
+        let generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        generator.maximumSize = maxPixelSize
+        generator.requestedTimeToleranceBefore = .zero
+        generator.requestedTimeToleranceAfter = CMTime(seconds: 1, preferredTimescale: 600)
+        let seconds = min(1.0, max(0, duration.seconds / 2))
+        let time = CMTime(seconds: seconds, preferredTimescale: 600)
+        return try? await generator.image(at: time).image
+    }
 }
