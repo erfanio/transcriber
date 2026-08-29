@@ -9,7 +9,7 @@ nonisolated struct ProviderInfo: Identifiable, Sendable {
 
 /// The one place that knows about concrete backends. Add a new service here and it appears in Settings.
 nonisolated enum ProviderFactory {
-    static let elevenLabsID = "elevenlabs-scribe-v2"
+    static let elevenLabsID = ElevenLabsScribeProvider.providerID
 
     static var available: [ProviderInfo] {
         var list = [ProviderInfo(id: elevenLabsID, name: "ElevenLabs Scribe v2", needsAPIKey: true)]
@@ -31,7 +31,7 @@ nonisolated enum ProviderFactory {
             guard let key = config.apiKey?.trimmingCharacters(in: .whitespacesAndNewlines), !key.isEmpty else {
                 throw TranscriptionError.missingAPIKey
             }
-            throw TranscriptionError.badRequest("ElevenLabs support is not wired up yet")
+            return ElevenLabsScribeProvider(apiKey: key)
         default:
             throw TranscriptionError.badRequest("Unknown transcription service: \(config.providerID)")
         }
