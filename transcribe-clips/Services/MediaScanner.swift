@@ -5,6 +5,8 @@ nonisolated struct ScannedClip: Sendable {
     let url: URL
     let relativeName: String
     let hasExistingSRT: Bool
+    /// A `.transcript.json` from an earlier run exists, so subtitles can be rebuilt without uploading.
+    let hasSavedTranscript: Bool
     /// Another clip in the same folder shares this base name, so they would fight over one `.srt`.
     let nameCollision: Bool
 }
@@ -24,11 +26,12 @@ nonisolated enum MediaScanner {
             if relative.hasPrefix(folderPath) {
                 relative = String(relative.dropFirst(folderPath.count)).trimmingCharacters(in: CharacterSet(charactersIn: "/"))
             }
-            let srtURL = url.deletingPathExtension().appendingPathExtension("srt")
+            let stem = url.deletingPathExtension()
             return ScannedClip(
                 url: url,
                 relativeName: relative.isEmpty ? url.lastPathComponent : relative,
-                hasExistingSRT: FileManager.default.fileExists(atPath: srtURL.path(percentEncoded: false)),
+                hasExistingSRT: FileManager.default.fileExists(atPath: stem.appendingPathExtension("srt").path(percentEncoded: false)),
+                hasSavedTranscript: FileManager.default.fileExists(atPath: stem.appendingPathExtension("transcript.json").path(percentEncoded: false)),
                 nameCollision: collision
             )
         }

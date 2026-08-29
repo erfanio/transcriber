@@ -482,12 +482,32 @@
         }
       }
     },
+    "Re-scan the folder for new clips or deleted subtitles": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جست‌وجوی دوبارهٔ پوشه برای کلیپ‌های جدید یا زیرنویس‌های حذف‌شده"
+          }
+        }
+      }
+    },
     "Ready": {
       "localizations": {
         "fa": {
           "stringUnit": {
             "state": "translated",
             "value": "آماده"
+          }
+        }
+      }
+    },
+    "Refresh": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تازه‌سازی"
           }
         }
       }
@@ -878,6 +898,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "در انتظار…"
+          }
+        }
+      }
+    },
+    "Will rebuild from the saved transcript (no upload)": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "از متن ذخیره‌شده دوباره ساخته می‌شود (بدون بارگذاری)"
           }
         }
       }

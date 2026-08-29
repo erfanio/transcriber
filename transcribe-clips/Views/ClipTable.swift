@@ -98,6 +98,9 @@ private struct StatusCell: View {
                 } else if job.nameCollision {
                     Image(systemName: "exclamationmark.triangle").foregroundStyle(.orange)
                     Text("Same name as another clip").foregroundStyle(.secondary)
+                } else if job.canRebuildLocally {
+                    Image(systemName: "doc.text").foregroundStyle(.secondary)
+                    Text("Will rebuild from the saved transcript (no upload)").foregroundStyle(.secondary)
                 } else {
                     Text("Ready").foregroundStyle(.secondary)
                 }

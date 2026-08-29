@@ -23,18 +23,34 @@ final class ClipJob: Identifiable {
     var duration: TimeInterval?
     var thumbnail: CGImage?
     var mediaInfoLoaded = false
-    var isSelected: Bool
+    var isSelected = false
     var hasExistingSRT: Bool
-    let nameCollision: Bool
+    var hasSavedTranscript: Bool
+    var nameCollision: Bool
     var status: Status = .idle
 
-    init(url: URL, relativeName: String, hasExistingSRT: Bool, nameCollision: Bool) {
+    init(url: URL, relativeName: String, hasExistingSRT: Bool, hasSavedTranscript: Bool, nameCollision: Bool) {
         self.url = url
         self.relativeName = relativeName
         self.hasExistingSRT = hasExistingSRT
+        self.hasSavedTranscript = hasSavedTranscript
         self.nameCollision = nameCollision
-        self.isSelected = !hasExistingSRT && !nameCollision
     }
+
+    /// Bring flags in line with what a fresh scan of the folder found.
+    func update(from clip: ScannedClip) {
+        let hadSRT = hasExistingSRT
+        hasExistingSRT = clip.hasExistingSRT
+        hasSavedTranscript = clip.hasSavedTranscript
+        nameCollision = clip.nameCollision
+        if !isActive {
+            if hadSRT != hasExistingSRT { status = .idle }
+            if !isSelectable { isSelected = false }
+        }
+    }
+
+    /// Rebuild subtitles from the saved transcript instead of uploading again.
+    var canRebuildLocally: Bool { hasSavedTranscript && !hasExistingSRT }
 
     var srtURL: URL { url.deletingPathExtension().appendingPathExtension("srt") }
     var jsonURL: URL { url.deletingPathExtension().appendingPathExtension("transcript.json") }

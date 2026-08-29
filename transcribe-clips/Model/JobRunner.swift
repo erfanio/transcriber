@@ -3,6 +3,9 @@ import Foundation
 import Observation
 import TranscribeCore
 import UserNotifications
+import os
+
+private let log = Logger(subsystem: "io.erfan.transcribe-clips", category: "JobRunner")
 
 /// Owns the clip list for the open folder and drives the extract → transcribe → write pipeline.
 @Observable
@@ -16,6 +19,8 @@ final class JobRunner {
     private let settings: AppSettings
     private var runTask: Task<Void, Never>?
     private var scanTask: Task<Void, Never>?
+    private var refreshTask: Task<Void, Never>?
+    private var watcher: FolderWatcher?
 
     init(settings: AppSettings) {
         self.settings = settings
@@ -46,6 +51,7 @@ final class JobRunner {
         guard defaults.bool(forKey: "autoStart") else { return }
         Task {
             while isScanning { try? await Task.sleep(for: .milliseconds(100)) }
+            selectAll()
             start()
             while isRunning { try? await Task.sleep(for: .milliseconds(200)) }
             if defaults.bool(forKey: "quitWhenDone") { NSApp.terminate(nil) }
@@ -90,16 +96,66 @@ final class JobRunner {
 
     func openFolder(_ url: URL) {
         scanTask?.cancel()
+        refreshTask?.cancel()
         folderURL = url
         jobs = []
         isScanning = true
+        watcher = FolderWatcher(folder: url) { [weak self] in self?.folderChanged() }
         scanTask = Task {
             let clips = await MediaScanner.scan(folder: url)
             guard !Task.isCancelled else { return }
-            jobs = clips.map { ClipJob(url: $0.url, relativeName: $0.relativeName, hasExistingSRT: $0.hasExistingSRT, nameCollision: $0.nameCollision) }
+            jobs = clips.map(makeJob)
             isScanning = false
             await loadMediaInfo(for: jobs)
         }
+    }
+
+    /// Re-scan the open folder, keeping existing rows (and their state) where the clip is still there.
+    func refresh() {
+        guard let folderURL, !isRunning, !isScanning else { return }
+        refreshTask?.cancel()
+        refreshTask = Task {
+            let clips = await MediaScanner.scan(folder: folderURL)
+            guard !Task.isCancelled, !isRunning, self.folderURL == folderURL else { return }
+            var existing = Dictionary(jobs.map { ($0.url.standardizedFileURL.path(percentEncoded: false), $0) }, uniquingKeysWith: { first, _ in first })
+            var updated: [ClipJob] = []
+            var added: [ClipJob] = []
+            for clip in clips {
+                if let job = existing.removeValue(forKey: clip.url.standardizedFileURL.path(percentEncoded: false)) {
+                    job.update(from: clip)
+                    updated.append(job)
+                } else {
+                    let job = makeJob(clip)
+                    updated.append(job)
+                    added.append(job)
+                }
+            }
+            jobs = updated
+            log.notice("refresh: \(updated.count) clips, \(updated.filter(\.hasExistingSRT).count) with subtitles, \(added.count) new, \(existing.count) removed")
+            DebugReport.append("refresh: \(updated.count) clips, \(updated.filter(\.hasExistingSRT).count) with subtitles, \(added.count) new, \(existing.count) removed")
+            await loadMediaInfo(for: added)
+        }
+    }
+
+    private func folderChanged() {
+        DebugReport.append("folderChanged isRunning=\(isRunning) isScanning=\(isScanning)")
+        guard !isRunning else { return }
+        refreshTask?.cancel()
+        refreshTask = Task {
+            try? await Task.sleep(for: .seconds(1))
+            guard !Task.isCancelled else { return }
+            refresh()
+        }
+    }
+
+    private func makeJob(_ clip: ScannedClip) -> ClipJob {
+        ClipJob(
+            url: clip.url,
+            relativeName: clip.relativeName,
+            hasExistingSRT: clip.hasExistingSRT,
+            hasSavedTranscript: clip.hasSavedTranscript,
+            nameCollision: clip.nameCollision
+        )
     }
 
     /// Durations and thumbnails, a few clips at a time so a big folder fills in progressively.
@@ -175,6 +231,7 @@ final class JobRunner {
         runTask = Task {
             await run(queue, config: config, provider: provider)
             isRunning = false
+            refresh()
             Notifier.batchFinished(done: queue.filter { if case .done = $0.status { true } else { false } }.count,
                                    failed: queue.filter(\.isFailedOrCancelled).count)
         }
@@ -224,33 +281,40 @@ final class JobRunner {
 
         do {
             try Task.checkCancellation()
-            job.status = .extracting(0)
-            try await extractGate.withPermit {
-                try await AudioExtractor.extractAudio(from: sourceURL, to: audioURL) { fraction in
-                    Task { @MainActor in job.applyProgress(.extracting(fraction)) }
+            let transcript: Transcript
+            if job.canRebuildLocally, let saved = await SubtitleBuilder.loadTranscript(from: job.jsonURL) {
+                log.notice("rebuilding \(job.relativeName, privacy: .public) from saved transcript")
+                transcript = saved
+            } else {
+                job.status = .extracting(0)
+                try await extractGate.withPermit {
+                    try await AudioExtractor.extractAudio(from: sourceURL, to: audioURL) { fraction in
+                        Task { @MainActor in job.applyProgress(.extracting(fraction)) }
+                    }
                 }
-            }
 
-            job.status = .uploading(0)
-            let options = config.transcriptionOptions
-            let transcript = try await networkGate.withPermit {
-                try await provider.transcribe(audioFileURL: audioURL, options: options) { update in
-                    Task { @MainActor in
-                        switch update {
-                        case .uploading(let fraction): job.applyProgress(.uploading(fraction))
-                        case .processing: job.applyProgress(.transcribing)
-                        case .waitingToRetry(let seconds): job.applyProgress(.waitingToRetry(Int(seconds.rounded(.up))))
+                job.status = .uploading(0)
+                let options = config.transcriptionOptions
+                transcript = try await networkGate.withPermit {
+                    try await provider.transcribe(audioFileURL: audioURL, options: options) { update in
+                        Task { @MainActor in
+                            switch update {
+                            case .uploading(let fraction): job.applyProgress(.uploading(fraction))
+                            case .processing: job.applyProgress(.transcribing)
+                            case .waitingToRetry(let seconds): job.applyProgress(.waitingToRetry(Int(seconds.rounded(.up))))
+                            }
                         }
                     }
+                }
+                if config.saveRawTranscript {
+                    try SubtitleBuilder.transcriptData(transcript).write(to: job.jsonURL, options: .atomic)
+                    job.hasSavedTranscript = true
                 }
             }
 
             job.status = .writing
             let (srt, cueCount) = await SubtitleBuilder.build(transcript, options: config.segmenterOptions, srtOptions: config.srtOptions)
             try Data(srt.utf8).write(to: job.srtURL, options: .atomic)
-            if config.saveRawTranscript {
-                try SubtitleBuilder.transcriptData(transcript).write(to: job.jsonURL, options: .atomic)
-            }
             job.status = .done(cues: cueCount)
             job.hasExistingSRT = true
             job.isSelected = false
@@ -273,10 +337,38 @@ nonisolated enum SubtitleBuilder {
         return (SRTWriter.render(cues, options: srtOptions), cues.count)
     }
 
+    /// nil if the file is missing or not something we wrote; the caller then transcribes normally.
+    @concurrent
+    static func loadTranscript(from url: URL) async -> Transcript? {
+        guard let data = try? Data(contentsOf: url),
+              let transcript = try? JSONDecoder().decode(Transcript.self, from: data),
+              !transcript.words.isEmpty
+        else { return nil }
+        return transcript
+    }
+
     static func transcriptData(_ transcript: Transcript) throws -> Data {
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
         return try encoder.encode(transcript)
+    }
+}
+
+/// Appends to a file in the temp dir when launched with `-debugReport YES`, for automated checks.
+nonisolated enum DebugReport {
+    static func append(_ line: String) {
+        #if DEBUG
+        guard UserDefaults.standard.bool(forKey: "debugReport") else { return }
+        let url = TempFiles.directory.appending(path: "debug-report.txt")
+        let data = Data((line + "\n").utf8)
+        if let handle = try? FileHandle(forWritingTo: url) {
+            defer { try? handle.close() }
+            _ = try? handle.seekToEnd()
+            try? handle.write(contentsOf: data)
+        } else {
+            try? data.write(to: url)
+        }
+        #endif
     }
 }
 

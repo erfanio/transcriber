@@ -128,6 +128,13 @@ private struct FolderHeader: View {
             Spacer()
             Button("Select All") { runner.selectAll() }
             Button("Select None") { runner.selectNone() }
+            Button {
+                runner.refresh()
+            } label: {
+                Label("Refresh", systemImage: "arrow.clockwise")
+            }
+            .keyboardShortcut("r")
+            .help("Re-scan the folder for new clips or deleted subtitles")
         }
         .disabled(runner.isRunning)
         .padding(.horizontal, 12)
