@@ -8,6 +8,8 @@ enum ErrorMessages {
             return String(localized: "Add your API key in Settings first.")
         case .invalidAPIKey:
             return String(localized: "The API key was rejected. Check it in Settings.")
+        case .unauthorized(let detail):
+            return String(localized: "The service refused the API key: \(detail)")
         case .missingPermissions:
             return String(localized: "This API key isn't allowed to do that. In ElevenLabs, edit the key's permissions and enable “Speech to Text”.")
         case .forbidden(let detail):

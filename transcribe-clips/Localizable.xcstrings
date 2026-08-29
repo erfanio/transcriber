@@ -222,6 +222,26 @@
         }
       }
     },
+    "Could not read the API key from the keychain: %@": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کلید API از کی‌چین خوانده نشد: %@"
+          }
+        }
+      }
+    },
+    "Could not read the key: %@": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کلید خوانده نشد: %@"
+          }
+        }
+      }
+    },
     "Could not save the key: %@": {
       "localizations": {
         "fa": {
@@ -652,6 +672,16 @@
         }
       }
     },
+    "The key is stored in your keychain when you press Test Key or close this window.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کلید هنگام زدن «آزمایش کلید» یا بستن این پنجره در کی‌چین ذخیره می‌شود."
+          }
+        }
+      }
+    },
     "The service could not process this clip: %@": {
       "localizations": {
         "fa": {
@@ -678,6 +708,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "سرویس شلوغ است. چند دقیقهٔ دیگر دوباره تلاش کنید."
+          }
+        }
+      }
+    },
+    "The service refused the API key: %@": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سرویس کلید API را نپذیرفت: %@"
           }
         }
       }

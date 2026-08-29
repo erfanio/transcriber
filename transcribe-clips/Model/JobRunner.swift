@@ -127,7 +127,13 @@ final class JobRunner {
         let queue = selectedJobs
         guard !queue.isEmpty else { return }
 
-        let apiKey = try? KeychainStore().read(account: settings.providerID)
+        let apiKey: String?
+        do {
+            apiKey = try KeychainStore().read(account: settings.providerID)
+        } catch {
+            lastError = String(localized: "Could not read the API key from the keychain: \(error.localizedDescription)")
+            return
+        }
         let config = settings.runConfiguration(apiKey: apiKey)
         let provider: any TranscriptionProvider
         do {

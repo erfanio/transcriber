@@ -4,6 +4,7 @@ import TranscribeCore
 struct SettingsView: View {
     @Environment(AppSettings.self) private var settings
     @State private var apiKey = ""
+    @State private var storedKey = ""
     @State private var keyCheck: KeyCheck = .idle
     @State private var keyCheckTask: Task<Void, Never>?
 
@@ -23,11 +24,15 @@ struct SettingsView: View {
                 if ProviderFactory.info(for: settings.providerID)?.needsAPIKey == true {
                     SecureField("API key", text: $apiKey)
                         .textContentType(.password)
+                        .onSubmit(saveKey)
                     HStack {
                         Button("Test Key") { testKey() }
-                            .disabled(apiKey.isEmpty || keyCheck == .testing)
+                            .disabled(apiKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || keyCheck == .testing)
                         keyCheckLabel
                     }
+                    Text("The key is stored in your keychain when you press Test Key or close this window.")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
                     if settings.providerID == ProviderFactory.elevenLabsID {
                         Link("Get an ElevenLabs API key…", destination: URL(string: "https://elevenlabs.io/app/settings/api-keys")!)
                             .font(.callout)
@@ -75,8 +80,11 @@ struct SettingsView: View {
         .frame(width: 520)
         .fixedSize(horizontal: false, vertical: true)
         .onAppear(perform: loadKey)
-        .onChange(of: settings.providerID) { loadKey() }
-        .onChange(of: apiKey) { saveKey() }
+        .onDisappear(perform: saveKey)
+        .onChange(of: settings.providerID) { _, _ in
+            saveKey()
+            loadKey()
+        }
     }
 
     @ViewBuilder
@@ -94,24 +102,38 @@ struct SettingsView: View {
     }
 
     private func loadKey() {
-        apiKey = (try? KeychainStore().read(account: settings.providerID)) ?? ""
-        keyCheck = .idle
+        guard ProviderFactory.info(for: settings.providerID)?.needsAPIKey == true else {
+            apiKey = ""
+            storedKey = ""
+            return
+        }
+        do {
+            storedKey = try KeychainStore().read(account: settings.providerID) ?? ""
+            apiKey = storedKey
+            keyCheck = .idle
+        } catch {
+            keyCheck = .failed(String(localized: "Could not read the key: \(error.localizedDescription)"))
+        }
     }
 
+    // Keychain access can prompt on ad-hoc builds, so only touch it when the key actually changed.
     private func saveKey() {
         let trimmed = apiKey.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard trimmed != storedKey, ProviderFactory.info(for: settings.providerID)?.needsAPIKey == true else { return }
         do {
             if trimmed.isEmpty {
                 try KeychainStore().delete(account: settings.providerID)
             } else {
                 try KeychainStore().write(trimmed, account: settings.providerID)
             }
+            storedKey = trimmed
         } catch {
             keyCheck = .failed(String(localized: "Could not save the key: \(error.localizedDescription)"))
         }
     }
 
     private func testKey() {
+        saveKey()
         keyCheckTask?.cancel()
         keyCheck = .testing
         let config = settings.runConfiguration(apiKey: apiKey.trimmingCharacters(in: .whitespacesAndNewlines))
