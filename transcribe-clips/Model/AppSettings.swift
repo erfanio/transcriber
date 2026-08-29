@@ -36,7 +36,7 @@ final class AppSettings {
         providerID = defaults.string(forKey: "providerID") ?? ProviderFactory.elevenLabsID
         languageCode = defaults.string(forKey: "languageCode") ?? "fas"
         maxConcurrent = defaults.object(forKey: "maxConcurrent") as? Int ?? 2
-        diarize = defaults.bool(forKey: "diarize")
+        diarize = defaults.object(forKey: "diarize") as? Bool ?? true
         keytermsText = defaults.string(forKey: "keytermsText") ?? ""
         maxCharsPerLine = defaults.object(forKey: "maxCharsPerLine") as? Int ?? 42
         maxCueDuration = defaults.object(forKey: "maxCueDuration") as? Double ?? 6.0
