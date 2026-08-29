@@ -32,7 +32,9 @@ The app takes care of audio extraction, concurrency, progress, cue segmentation 
 ## Release (ad-hoc, no developer account)
 
 ```sh
-scripts/build-release.sh          # → build/Clip Transcriber.zip
+scripts/build-release.sh          # → build/Clip Transcriber.zip (universal, Release, ad-hoc signed)
 ```
 
-Send the zip; on the recipient's Mac the first launch needs right-click → Open (documented in the user guide).
+Or in Xcode: destination *Any Mac* → Product → Archive → Distribute App → Custom → Copy App.
+
+Copying from a USB stick avoids the quarantine flag entirely. If the zip arrives via AirDrop/download, the first launch on macOS 15+ needs System Settings → Privacy & Security → **Open Anyway** (right-click → Open no longer bypasses Gatekeeper there); see the user guide. `xattr -d com.apple.quarantine "Clip Transcriber.app"` is the shortcut if you set it up yourself.
