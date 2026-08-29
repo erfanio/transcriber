@@ -12,6 +12,9 @@ public enum HTTPErrorMapper {
         let message = detail.message
         let code = detail.code?.lowercased() ?? ""
 
+        if (status == 401 || status == 403), code.contains("missing_permissions") {
+            return .missingPermissions(message)
+        }
         switch status {
         case 401:
             return .invalidAPIKey

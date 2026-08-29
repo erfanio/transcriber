@@ -3,6 +3,8 @@ import Foundation
 public enum TranscriptionError: Error, Sendable, Equatable {
     case missingAPIKey
     case invalidAPIKey
+    /// The key is valid but lacks a permission (ElevenLabs: `missing_permissions`).
+    case missingPermissions(String)
     case forbidden(String)
     case insufficientCredits
     case fileTooLarge
@@ -30,6 +32,7 @@ public enum TranscriptionError: Error, Sendable, Equatable {
         switch self {
         case .missingAPIKey: return "No API key configured."
         case .invalidAPIKey: return "Invalid API key."
+        case .missingPermissions(let m): return "The API key lacks a required permission: \(m)"
         case .forbidden(let m): return "Not permitted: \(m)"
         case .insufficientCredits: return "Not enough credits on this account."
         case .fileTooLarge: return "The file is too large for this service."

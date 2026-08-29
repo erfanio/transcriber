@@ -72,6 +72,9 @@ import Testing
         let tooLarge = Data(#"{"detail":{"status":"request_too_large","message":"File exceeds limit"}}"#.utf8)
         #expect(HTTPErrorMapper.map(status: 400, data: tooLarge) == .fileTooLarge)
         #expect(HTTPErrorMapper.map(status: 413, data: Data()) == .fileTooLarge)
+        let noPermission = Data(#"{"detail":{"status":"missing_permissions","message":"The API key you used is missing the permission user_read"}}"#.utf8)
+        #expect(HTTPErrorMapper.map(status: 401, data: noPermission) == .missingPermissions("The API key you used is missing the permission user_read"))
+        #expect(HTTPErrorMapper.map(status: 401, data: noPermission).isRetryable == false)
     }
 
     @Test func mapsDetailStringAndGarbage() {

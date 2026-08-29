@@ -153,6 +153,14 @@ final class StubURLProtocol: URLProtocol {
         await #expect(throws: TranscriptionError.invalidAPIKey) {
             try await makeProvider().validateCredentials()
         }
+
+        // A key with only the Speech to Text permission is still a valid key.
+        StubURLProtocol.reset(responses: [
+            .init(status: 401, body: Data(#"{"detail":{"status":"missing_permissions","message":"missing user_read"}}"#.utf8)),
+        ])
+        let restricted = try await makeProvider().validateCredentials()
+        #expect(restricted.hasPrefix("Key is valid"))
+        #expect(restricted.contains("User"))
     }
 
     @Test func multipartTempFileIsRemovedAfterwards() async throws {

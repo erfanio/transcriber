@@ -40,6 +40,8 @@ public struct ElevenLabsScribeProvider: TranscriptionProvider {
 
     // MARK: - Credentials
 
+    /// Uses `GET /v1/user`, which needs the optional "User" permission. A key that only has
+    /// "Speech to Text" answers `missing_permissions`, which still proves the key itself is valid.
     public func validateCredentials() async throws -> String {
         var request = URLRequest(url: baseURL.appending(path: "v1/user"))
         request.httpMethod = "GET"
@@ -47,21 +49,22 @@ public struct ElevenLabsScribeProvider: TranscriptionProvider {
         apply(headers: &request)
 
         let (data, response) = try await perform { try await session.data(for: request) }
-        switch response.statusCode {
-        case 200:
-            let user = try? JSONDecoder().decode(ElevenLabsDTO.UserResponse.self, from: data)
-            guard let subscription = user?.subscription else { return "Key accepted" }
-            var parts: [String] = ["Key accepted"]
+        guard response.statusCode == 200 else {
+            let error = HTTPErrorMapper.map(status: response.statusCode, data: data, retryAfterHeader: response.value(forHTTPHeaderField: "Retry-After"))
+            if case .missingPermissions = error {
+                return "Key is valid · usage not visible (add the “User” permission to the key to show it)"
+            }
+            throw error
+        }
+        let user = try? JSONDecoder().decode(ElevenLabsDTO.UserResponse.self, from: data)
+        var parts: [String] = ["Key is valid"]
+        if let subscription = user?.subscription {
             if let tier = subscription.tier, !tier.isEmpty { parts.append(tier.capitalized + " plan") }
             if let used = subscription.characterCount, let limit = subscription.characterLimit, limit > 0 {
-                parts.append("\(used.formatted()) / \(limit.formatted()) characters used")
+                parts.append("\(used.formatted()) / \(limit.formatted()) credits used")
             }
-            return parts.joined(separator: " · ")
-        case 403:
-            return "Key accepted (it can't read account details, which is fine)"
-        default:
-            throw HTTPErrorMapper.map(status: response.statusCode, data: data, retryAfterHeader: response.value(forHTTPHeaderField: "Retry-After"))
         }
+        return parts.joined(separator: " · ")
     }
 
     // MARK: - Transcription
