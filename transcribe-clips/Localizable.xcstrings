@@ -92,6 +92,16 @@
         }
       }
     },
+    "App language": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "زبان برنامه"
+          }
+        }
+      }
+    },
     "Arabic": {
       "localizations": {
         "fa": {
@@ -198,6 +208,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "زیرنویس‌ساز کلیپ"
+          }
+        }
+      }
+    },
+    "Clip Transcriber needs to restart to change its language.": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "برای تغییر زبان، زیرنویس‌ساز کلیپ باید دوباره باز شود."
           }
         }
       }
@@ -328,6 +348,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "استخراج صدا"
+          }
+        }
+      }
+    },
+    "Follow system language": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مطابق زبان سیستم"
           }
         }
       }
@@ -512,6 +542,26 @@
         }
       }
     },
+    "Restart": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "باز کردن دوباره"
+          }
+        }
+      }
+    },
+    "Restart to switch language?": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "برای تغییر زبان، برنامه دوباره باز شود؟"
+          }
+        }
+      }
+    },
     "Retry Failed": {
       "localizations": {
         "fa": {
@@ -688,6 +738,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "زیرنویس موجود است"
+          }
+        }
+      }
+    },
+    "Switch the app between English and Persian": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تغییر زبان برنامه بین انگلیسی و فارسی"
           }
         }
       }

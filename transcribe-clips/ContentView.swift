@@ -72,6 +72,9 @@ struct ContentView: View {
                     }
                 }
 
+                LanguageMenu()
+                    .disabled(runner.isRunning)
+
                 Button {
                     openSettings()
                 } label: {
@@ -86,6 +89,39 @@ struct ContentView: View {
             actions: { Button("OK") { runner.lastError = nil } },
             message: { Text(runner.lastError ?? "") }
         )
+    }
+}
+
+private struct LanguageMenu: View {
+    @State private var pending: AppLanguage?
+
+    var body: some View {
+        Menu {
+            Picker(selection: Binding(get: { AppLanguage.current }, set: { pending = $0 })) {
+                ForEach(AppLanguage.allCases) { language in
+                    Text(verbatim: language.menuTitle).tag(language)
+                }
+            } label: {
+                EmptyView()
+            }
+            .pickerStyle(.inline)
+        } label: {
+            Label("App language", systemImage: "globe")
+        }
+        .help("Switch the app between English and Persian")
+        .alert(
+            String(localized: "Restart to switch language?"),
+            isPresented: Binding(get: { pending != nil }, set: { if !$0 { pending = nil } }),
+            presenting: pending
+        ) { language in
+            Button("Restart") {
+                AppLanguage.apply(language)
+                AppLanguage.relaunch()
+            }
+            Button("Cancel", role: .cancel) { pending = nil }
+        } message: { _ in
+            Text("Clip Transcriber needs to restart to change its language.")
+        }
     }
 }
 

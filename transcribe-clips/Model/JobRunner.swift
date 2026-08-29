@@ -43,7 +43,13 @@ final class JobRunner {
                 report.append("error: \(error)")
             }
             try? report.joined(separator: "\n").write(to: TempFiles.directory.appending(path: "apikeystore-selftest.txt"), atomically: true, encoding: .utf8)
-            NSApp.terminate(nil)
+            AppLanguage.quit()
+            return
+        }
+        if let code = defaults.string(forKey: "switchLanguage"), let language = AppLanguage(rawValue: code) {
+            AppLanguage.apply(language)
+            DebugReport.append("switchLanguage \(code) -> AppleLanguages=\(defaults.array(forKey: "AppleLanguages") ?? [])")
+            AppLanguage.relaunch()
             return
         }
         guard let path = defaults.string(forKey: "openFolder") else { return }
@@ -54,7 +60,7 @@ final class JobRunner {
             selectAll()
             start()
             while isRunning { try? await Task.sleep(for: .milliseconds(200)) }
-            if defaults.bool(forKey: "quitWhenDone") { NSApp.terminate(nil) }
+            if defaults.bool(forKey: "quitWhenDone") { AppLanguage.quit() }
         }
     }
     #endif
